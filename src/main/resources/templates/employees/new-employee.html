@@ -5,7 +5,7 @@
 	<nav th:replace="layouts :: navbar"></nav>
 	<div class="container">
 	<h1>Create Employee</h1>
-		<form action="/employees/save" method="post" th:object="${employee}">
+		<form th:action="@{/employees/save}" method="post" th:object="${employee}">
 			<div class="form-group">
 				<label for="firstName">First Name</label> <input type="text"
 					class="form-control" th:field="${employee.firstName}"
@@ -21,6 +21,7 @@
 					class="form-control" th:field="${employee.email}"
 					placeholder="Email">
 			</div>
+		
 			<button type="submit" class="btn btn-primary">Create
 				Employee</button>
 

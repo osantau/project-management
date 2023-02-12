@@ -21,26 +21,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 
+	@Autowired
+	BCryptPasswordEncoder bCryptEncoder;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// 1. In Memory Authentication
-		auth.jdbcAuthentication().dataSource(dataSource)
-		.usersByUsernameQuery("select username, password, enabled from users where username=?")
-		.authoritiesByUsernameQuery("select username, authority from authorities where username=?");
-	}
- 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(bCryptEncoder)
+		.usersByUsernameQuery("select username, password, enabled from user_accounts where username=?")
+		.authoritiesByUsernameQuery("select username,role from user_accounts where username=?");
+	} 
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/projects/new").hasRole("ADMIN").antMatchers("/employees/new")
-				.hasRole("ADMIN")
-				.antMatchers("/h2/console/**").permitAll()
-				.antMatchers("/").authenticated().and().formLogin();
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
+		// pay attention to the priority
+		http.authorizeRequests()
+		.antMatchers("/projects/new").hasRole("ADMIN")
+		.antMatchers("/projects/save").hasRole("ADMIN")
+		.antMatchers("/employees/new").hasRole("ADMIN")				
+		.antMatchers("/employees/save").hasRole("ADMIN")						
+		.antMatchers("/","/**").permitAll()
+		.and()
+		.formLogin();			
 	}
 }

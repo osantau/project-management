@@ -26,4 +26,13 @@ public class EmployeeService {
 	public List<EmployeeProjectDto> employeeProjects() {
 		return empRepo.employeeProjects();
 	}
+	
+	public Employee findById(Long id) {
+		return empRepo.findById(id).get();
+	}
+
+	public void deleteById(Long id) {
+		empRepo.deleteById(id);
+		
+	}
 }

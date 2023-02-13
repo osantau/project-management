@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import oct.soft.pma.dto.ChartDataDto;
+import oct.soft.pma.entities.Employee;
 import oct.soft.pma.entities.Project;
 import oct.soft.pma.repositories.ProjectRepository;
 
@@ -25,5 +26,14 @@ public class ProjectService {
 
 	public Project save(Project project) {
 		return proRepo.save(project);
+	}
+
+	public Project findById(Long id) {		
+		return proRepo.findById(id).get();
+	}
+
+	public void deleteById(Long id) {
+		proRepo.deleteById(id);
+		
 	}
 }

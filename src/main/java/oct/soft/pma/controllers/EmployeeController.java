@@ -1,7 +1,10 @@
 package oct.soft.pma.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +37,11 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/save")
-	public String createEmployee(Employee employee) {		
+	public String createEmployee(@Valid Employee employee, BindingResult bindingResult) {
+		if (bindingResult.hasErrors())
+		{
+			return "employees/new-employee";
+		}
 		empServ.save(employee);
 		// use a redirect to prevent duplicate submissions
 		return "redirect:/employees";

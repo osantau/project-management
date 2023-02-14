@@ -2,6 +2,8 @@ package oct.soft.pma.api.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -37,7 +39,7 @@ public class EmployeeAPIController {
 	
 	@RequestMapping(produces = "application/json", method = {RequestMethod.POST})
 	@ResponseStatus(HttpStatus.CREATED)
-	public Employee create(@RequestBody Employee employee)
+	public Employee create(@RequestBody @Valid Employee employee)
 	{	
 		System.out.println("Posting Employee");
 		return empServ.save(employee);
@@ -45,7 +47,7 @@ public class EmployeeAPIController {
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Employee update(@PathVariable("id") Long id, @RequestBody Employee employee)
+	public Employee update(@PathVariable("id") Long id, @RequestBody @Valid Employee employee)
 	{
 		Employee empPersisted = empServ.findById(id);
 		if(empPersisted != null)

@@ -17,4 +17,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 			+ " from employee e"
 			+ " left join project_employee pe on pe.employee_id = e.employee_id group by e.first_name, e.last_name order by projectCount desc")
 	public List<EmployeeProjectDto> employeeProjects();
+	
+	Employee findByEmail(String email);
 }

@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import oct.soft.pma.validators.UniqueValue;
+
 @Entity
 public class Employee {
 	@Id
@@ -33,8 +35,8 @@ public class Employee {
 	private String lastName;
 	
 	@NotNull
-	@Email
-	@Column(unique = true)
+	@Email(message = "*Must be a vald email address")	
+	@UniqueValue
 	private String email;
 	
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,

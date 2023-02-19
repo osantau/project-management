@@ -35,7 +35,8 @@ public class Employee {
 	private String lastName;
 	
 	@NotNull
-	@Email(message = "*Must be a vald email address")		
+	@Email(message = "*Must be a vald email address")	
+        @UniqueValue
 	private String email;
 	
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,

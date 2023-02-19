@@ -7,6 +7,8 @@
 		<h1>Create Employee</h1>
 		<form th:action="@{/employees/save}" method="post"
 			th:object="${employee}">
+                    <!-- This will be used to bind to the employee that was clicked on USED FOR UPDATES -->
+                    <input type="hidden" th:field="${employee.employeeId}">
 			<div class="form-group">
 				<label for="firstName">First Name</label> <input type="text"
 					class="form-control" th:field="${employee.firstName}"

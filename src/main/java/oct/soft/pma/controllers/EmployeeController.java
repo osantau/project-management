@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import oct.soft.pma.entities.Employee;
 import oct.soft.pma.services.EmployeeService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/employees")
@@ -46,4 +47,19 @@ public class EmployeeController {
 		// use a redirect to prevent duplicate submissions
 		return "redirect:/employees";
 	}
+        
+        @GetMapping("/update")
+        public String displayEmployeeUpdateForm(@RequestParam("id") long id, Model model)
+        {
+            Employee emp = empServ.findById(id);
+            model.addAttribute("employee", emp);
+            return "employees/new-employee";
+        }
+        
+        @GetMapping("/delete")
+        public String deleteEmployee(@RequestParam("id") long id)
+        {
+            empServ.deleteById(id);
+            return "redirect:/employees";
+        }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Pageable;
 import oct.soft.pma.dto.EmployeeProjectDto;
 import oct.soft.pma.entities.Employee;
 import oct.soft.pma.repositories.EmployeeRepository;
@@ -35,4 +35,10 @@ public class EmployeeService {
 		empRepo.deleteById(id);
 		
 	}
+        
+        public Iterable<Employee> findPageable(Pageable pageable)
+        {
+            return empRepo.findAll(pageable);
+        }
+              
 }

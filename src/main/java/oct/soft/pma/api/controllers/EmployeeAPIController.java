@@ -18,15 +18,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import oct.soft.pma.entities.Employee;
+import oct.soft.pma.repositories.EmployeeRepository;
 import oct.soft.pma.services.EmployeeService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeAPIController {
 
 	@Autowired
-	EmployeeService empServ;
-
+	EmployeeService empServ;                
+        
 	@GetMapping
 	public List<Employee> getEmployees() {		
 		return empServ.getAll();
@@ -80,5 +84,13 @@ public class EmployeeAPIController {
 			
 		}
 	}
+        
+        @GetMapping(params = {"page","size"})
+        @ResponseStatus(HttpStatus.OK)
+        public Iterable<Employee> findPaginatedEmployees(@RequestParam("page") int page, @RequestParam("size") int size)
+        {
+            Pageable pageable = PageRequest.of(page, size);
+            return empServ.findPageable(pageable);           
+        }
 	
 }

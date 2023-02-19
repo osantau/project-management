@@ -4,7 +4,8 @@
 <body>
 	<nav th:replace="layouts :: navbar"></nav>
 	<div class="container">
-		<h1>Create Employee</h1>
+		 <h1><span th:if="${employee.employeeId==null}">Create Employee</span>
+                     <span th:if="${employee.employeeId != null}">Update Employee</span></h1>
 		<form th:action="@{/employees/save}" method="post"
 			th:object="${employee}">
                     <!-- This will be used to bind to the employee that was clicked on USED FOR UPDATES -->

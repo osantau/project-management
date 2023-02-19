@@ -13,12 +13,18 @@
 				<tr>
 					<th>Project Name</th>
 					<th>Project Stage</th>
+                                        <th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="proj : ${projects}">
 					<td th:text="${proj.name}"></td>
 					<td th:text="${proj.stage}"></td>
+                                         <td>
+                                                    <a th:href="@{/projects/update/(id=${proj.projectId})}" class="btn btn-info btn-sm">Update</a>
+                                                    <a th:href="@{/projects/delete/(id=${proj.projectId})}" class="btn btn-danger btn-sm" 
+                                                       onclick="if (!(confirm('Are you sure you want to delete this project?'))) return false">Delete</a>
+                                                </td>
 				</tr>
 			</tbody>
 		</table>

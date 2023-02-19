@@ -5,8 +5,11 @@
 <body>
 	<nav th:replace="layouts :: navbar"></nav>
 	<div class="container">
-		<h1>Create Project</h1>
+            <h1><span th:if="${project.projectId==null}">Create Project</span>
+            <span th:if="${project.projectId != null}">Update Project</span>
+            </h1>
 		<form th:action="@{/projects/save}" method="post" th:object="${project}">
+                     <input type="hidden" th:field="${project.projectId}">
 			<div class="form-group">
 				<label for="name">Project Name</label> <input type="text"
 					class="form-control" name="name" id="name"
@@ -34,7 +37,7 @@
 						th:value="${employee.employeeId}" th:text="${employee.firstName}"></option>
 				</select>
 			</div>		
-			<button type="submit" class="btn btn-primary">Create Project</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
 
 		</form>
 	</div>

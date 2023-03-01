@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import oct.soft.pma.dto.ChartDataDto;
+import oct.soft.pma.dto.TimeChartData;
 import oct.soft.pma.entities.Employee;
 import oct.soft.pma.entities.Project;
 import oct.soft.pma.repositories.ProjectRepository;
@@ -36,4 +37,8 @@ public class ProjectService {
 		proRepo.deleteById(id);
 		
 	}
+        
+        public List<TimeChartData> getTimeData(){
+            return proRepo.getTimeData();
+        }
 }

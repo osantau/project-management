@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Project {
@@ -21,8 +23,10 @@ public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long projectId;
+        @NotNull
 	private String name;
-	private String stage; // NOTSTARTED, COMPLETED, INPROGRESS
+	@NotNull
+        private String stage; // NOTSTARTED, COMPLETED, INPROGRESS
 	private String description;
 
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
@@ -31,6 +35,12 @@ public class Project {
 	@JsonIgnore
 	private List<Employee> employees;
 
+        
+	@NotNull(message="date cannot be empty")
+	private Date startDate;
+	
+	@NotNull(message="date cannot be empty")
+	private Date endDate;
 	public Project() {
 
 	}
@@ -88,4 +98,21 @@ public class Project {
 		}
 		employees.add(employee);
 	}
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+            
 }
